@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Match — 메모리 카드 게임</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="hd">
+      <h1>🎴 Match</h1>
+      <p>같은 그림 카드를 짝지어 모두 맞춰 보세요.</p>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span>시간</span>
+        <strong id="time">00:00</strong>
+      </div>
+      <div class="stat">
+        <span>이동</span>
+        <strong id="moves">0</strong>
+      </div>
+      <div class="stat">
+        <span>맞춤</span>
+        <strong><span id="found">0</span> / 8</strong>
+      </div>
+      <div class="stat">
+        <span>난이도</span>
+        <select id="level">
+          <option value="easy">쉬움 (4×3)</option>
+          <option value="normal" selected>보통 (4×4)</option>
+          <option value="hard">어려움 (4×5)</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="board" id="board"></section>
+
+    <div class="actions">
+      <button type="button" id="restart" class="btn">다시 시작</button>
+      <span class="best">최고 기록: <strong id="best">없음</strong></span>
+    </div>
+  </div>
+
+  <!-- 승리 모달 -->
+  <div class="modal" id="winModal" hidden>
+    <div class="modal__bg"></div>
+    <div class="modal__panel">
+      <div class="trophy">🏆</div>
+      <h2>모두 맞췄어요!</h2>
+      <p id="winSummary"></p>
+      <button type="button" class="btn" id="again">한 판 더</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"c7ff09459b034bca86d316da146b68be","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+:root {
+  --bg: #0c0a18;
+  --card-back: linear-gradient(135deg, #6366f1, #ec4899);
+  --card-face: #fafafa;
+  --text: #f5f5f4;
+  --text-dim: #a8a29e;
+  --border: #2a2845;
+  --surface: #161325;
+  --accent: #fbbf24;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background:
+    radial-gradient(800px 500px at 80% -10%, rgba(236,72,153,.22), transparent 60%),
+    radial-gradient(800px 500px at 10% 10%, rgba(99,102,241,.18), transparent 60%),
+    var(--bg);
+  color: var(--text); line-height: 1.5;
+  display: grid; place-items: center; padding: 32px 16px;
+}
+
+.wrap { width: 100%; max-width: 720px; }
+
+.hd { text-align: center; margin-bottom: 28px; }
+.hd h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -.02em; }
+.hd p { margin: 0; color: var(--text-dim); }
+
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 20px;
+}
+.stat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat span { color: var(--text-dim); font-size: .75rem; }
+.stat strong { font-size: 1.1rem; letter-spacing: -.01em; }
+.stat select {
+  background: transparent; border: 0; color: var(--text);
+  font-family: inherit; font-size: 1rem; outline: none;
+  padding: 0; cursor: pointer;
+}
+
+.board {
+  display: grid; gap: 10px;
+  margin-bottom: 20px;
+  perspective: 1000px;
+}
+.board.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  aspect-ratio: 3 / 4;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.card.is-flip, .card.is-matched { transform: rotateY(180deg); }
+.card.is-matched { cursor: default; }
+.card__side {
+  position: absolute; inset: 0;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  backface-visibility: hidden;
+  user-select: none;
+}
+.card__back {
+  background: var(--card-back);
+  color: #fff;
+  font-weight: 800;
+}
+.card__back::after {
+  content: '?'; font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+.card__face {
+  background: var(--card-face); color: #1f1f1f;
+  transform: rotateY(180deg);
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+.card.is-matched .card__face {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  animation: pop .3s ease;
+}
+@keyframes pop {
+  0% { transform: rotateY(180deg) scale(1); }
+  50% { transform: rotateY(180deg) scale(1.08); }
+  100% { transform: rotateY(180deg) scale(1); }
+}
+
+.actions {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 10px 18px; border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: #fff; border: 0;
+  font-family: inherit; font-weight: 600; font-size: .9rem;
+  cursor: pointer; transition: transform .1s ease, filter .15s ease;
+}
+.btn:hover { filter: brightness(1.07); }
+.btn:active { transform: translateY(1px); }
+.best { color: var(--text-dim); font-size: .9rem; }
+.best strong { color: var(--accent); }
+
+/* Modal */
+.modal {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center; padding: 16px;
+}
+.modal[hidden] { display: none; }
+.modal__bg { position: absolute; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(6px); }
+.modal__panel {
+  position: relative; width: 100%; max-width: 360px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 18px; padding: 32px;
+  text-align: center;
+  animation: rise .4s cubic-bezier(.22,1,.36,1);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px) scale(.95); }
+  to { opacity: 1; transform: none; }
+}
+.trophy { font-size: 4rem; margin-bottom: 12px; }
+.modal__panel h2 { margin: 0 0 8px; font-size: 1.4rem; }
+.modal__panel p { margin: 0 0 20px; color: var(--text-dim); }
